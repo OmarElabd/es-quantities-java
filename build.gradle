@@ -1,0 +1,70 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', 'src/generated/java']
+        }
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+
+    test {
+        java {
+            srcDirs = ['src/test/java']
+        }
+        resources {
+            srcDirs = ['src/test/resources']
+        }
+    }
+
+    scripts {
+        java.srcDirs = ['src/scripts']
+    }
+}
+
+dependencies {
+    implementation group: 'org.jgrapht', name: 'jgrapht-core', version: '1.5.2'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.14.0'
+    implementation group: 'org.apache.jena', name: 'jena-base', version: '5.0.0'
+    implementation group: 'org.apache.jena', name: 'jena-core', version: '5.0.0'
+    implementation group: 'org.apache.jena', name: 'jena-arq', version: '5.0.0'
+
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.3'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.3'
+
+    scriptsImplementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.14.0'
+    scriptsImplementation group: 'org.apache.jena', name: 'jena-base', version: '5.0.0'
+    scriptsImplementation group: 'org.apache.jena', name: 'jena-core', version: '5.0.0'
+    scriptsImplementation group: 'org.apache.jena', name: 'jena-arq', version: '5.0.0'
+
+    scriptsImplementation sourceSets.main.output
+}
+
+task generateUnits(type: JavaExec) {
+    classpath = sourceSets.scripts.runtimeClasspath
+    main = 'CodeGenerator'
+    def path = file('/src/generated').absolutePath
+    args = [path]
+}
+
+task generateDimensions(type: JavaExec) {
+
+}

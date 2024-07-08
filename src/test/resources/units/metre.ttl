@@ -1,0 +1,15 @@
+@prefix unit:    <http://encyclopediasemantica.org/semantic/elements/units/> .
+@prefix dims:    <http://encyclopediasemantica.org/semantic/schema/dimensions/> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dim:     <http://encyclopediasemantica.org/semantic/elements/dimensions/> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix units:   <http://encyclopediasemantica.org/semantic/schema/units/> .
+
+<http://encyclopediasemantica.org/semantic/elements/units/length/metre>
+      a       units:PrefixableUnit ;
+      rdfs:label "metre"@en ;
+      dims:type dim:length ;
+      units:plural "metres"@en ;
+      units:symbol "m" ;
+      units:utf_plural "metres"@en ;
+      units:utf_symbol "m" .

@@ -1,0 +1,10 @@
+@prefix dim:     <http://encyclopediasemantica.org/semantic/elements/dimensions/> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dims:    <http://encyclopediasemantica.org/semantic/schema/dimensions/> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+dim:angle
+      a       dims:Dimensionless ;
+      rdfs:label "Angle"@en ;
+      dims:symbol "1" ;
+      dims:utf_symbol "1" .

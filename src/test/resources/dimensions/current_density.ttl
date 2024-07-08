@@ -1,0 +1,10 @@
+@prefix dim:     <http://encyclopediasemantica.org/semantic/elements/dimensions/> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dims:    <http://encyclopediasemantica.org/semantic/schema/dimensions/> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+dim:current_density
+      a       dims:DerivedDimension ;
+      rdfs:label "Current density"@en ;
+      dims:symbol "L^-2 I" ;
+      dims:utf_symbol "L⁻²⋅I" .
