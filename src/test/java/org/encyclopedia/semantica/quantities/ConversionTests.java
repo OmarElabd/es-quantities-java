@@ -176,25 +176,25 @@ public class ConversionTests {
     public void testTemperature_C() {
         Quantity quantity = new Quantity(500, celsius);
 
-        assertEquals(773.15, quantity.convertTo(kelvin).getDoubleValue(), 0.1);
-        assertEquals(932.00, quantity.convertTo(fahrenheit).getDoubleValue(), 0.1);
-        assertEquals(1391.67, quantity.convertTo(rankine).getDoubleValue(), 0.1);
+        assertEquals(773.15, quantity.convertTo(kelvin).doubleValue(), 0.01);
+        assertEquals(932.00, quantity.convertTo(fahrenheit).doubleValue(), 0.01);
+        assertEquals(1391.67, quantity.convertTo(rankine).doubleValue(), 0.01);
         // assertEquals(-600.00, quantity.convertTo(delisle).getDoubleValue(), 0.1);
-        assertEquals(165.00, quantity.convertTo(TemperatureUnits.newton).getDoubleValue(), 0.1);
-        assertEquals(400.00, quantity.convertTo(reaumur).getDoubleValue(), 0.1);
-        assertEquals(270.00, quantity.convertTo(romer).getDoubleValue(), 0.1);
+        assertEquals(165.00, quantity.convertTo(TemperatureUnits.newton).doubleValue(), 0.01);
+        assertEquals(400.00, quantity.convertTo(reaumur).doubleValue(), 0.01);
+        assertEquals(270.00, quantity.convertTo(romer).doubleValue(), 0.01);
     }
 
     @Test
     public void testTemperature_Inference() {
         Quantity quantity = new Quantity(932.00, fahrenheit);
 
-        assertEquals(773.15, quantity.convertTo(kelvin).getDoubleValue(), 0.1);
-        assertEquals(1391.67, quantity.convertTo(rankine).getDoubleValue(), 0.1);
+        assertEquals(773.15, quantity.convertTo(kelvin).doubleValue(), 0.01);
+        assertEquals(1391.67, quantity.convertTo(rankine).doubleValue(), 0.01);
         // assertEquals(-600.00, quantity.convertTo(delisle).getDoubleValue(), 0.1);
-        assertEquals(165.00, quantity.convertTo(TemperatureUnits.newton).getDoubleValue(), 0.1);
-        assertEquals(400.00, quantity.convertTo(reaumur).getDoubleValue(), 0.1);
-        assertEquals(270.00, quantity.convertTo(romer).getDoubleValue(), 0.1);
+        assertEquals(165.00, quantity.convertTo(TemperatureUnits.newton).doubleValue(), 0.01);
+        assertEquals(400.00, quantity.convertTo(reaumur).doubleValue(), 0.01);
+        assertEquals(270.00, quantity.convertTo(romer).doubleValue(), 0.01);
     }
 
     @Test
@@ -202,7 +202,7 @@ public class ConversionTests {
     public void testConvertBinary() {
         Quantity quantity = new Quantity(1, bytes);
 
-        assertEquals(8, quantity.convertTo(bit).getIntegerValue());
+        assertEquals(8, quantity.convertTo(bit).intValue());
     }
 
     @Test
@@ -211,6 +211,6 @@ public class ConversionTests {
         Unit kibiBit = new PrefixedUnit(kibi, bit);
         Quantity quantity = new Quantity(1, kibiBit);
 
-        assertEquals(128, quantity.convertTo(bytes).getIntegerValue());
+        assertEquals(128, quantity.convertTo(bytes).intValue());
     }
 }

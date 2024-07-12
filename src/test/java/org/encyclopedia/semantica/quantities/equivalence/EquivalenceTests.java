@@ -4,6 +4,7 @@ import org.encyclopedia.semantica.quantities.model.derived.DivisionDerivedUnit;
 import org.encyclopedia.semantica.quantities.model.derived.PowerDerivedUnit;
 import org.encyclopedia.semantica.quantities.model.derived.ProductDerivedUnit;
 import org.encyclopedia.semantica.quantities.common.Normalization;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.encyclopedia.semantica.quantities.instances.SIDerivedUnits.*;
@@ -23,6 +24,14 @@ public class EquivalenceTests {
         ProductDerivedUnit metreDerived = new ProductDerivedUnit(metrePerSecond, second);
 
         assertTrue(metre.equivalentTo(metreDerived));
+    }
+
+    @Test
+    @DisplayName("m/s/s == m/s^2")
+    public void testEquivalence_MultiplePer() {
+        DivisionDerivedUnit metrePerSecondSquaredDerived = new DivisionDerivedUnit(metrePerSecond, second);
+
+        assertTrue(metrePerSecondSquared.equivalentTo(metrePerSecondSquaredDerived));
     }
 
     @Test

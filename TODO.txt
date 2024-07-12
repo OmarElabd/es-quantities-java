@@ -1,0 +1,7 @@
+1. Support Operations, +, *, /, - on Quantities and Values
+2. Separate Parser into new project
+3. Build
+4. Publish
+
+
+https://datacommons.org/browser/UnitOfMeasure
