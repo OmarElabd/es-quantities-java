@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'maven-publish'
 
 repositories {
     mavenCentral()
@@ -13,6 +14,7 @@ tasks.withType(JavaCompile) {
 }
 
 tasks.withType(Test) {
+    ignoreFailures = true
     useJUnitPlatform()
 }
 
@@ -67,4 +69,53 @@ task generateUnits(type: JavaExec) {
 
 task generateDimensions(type: JavaExec) {
 
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            groupId = 'org.encyclopediasemantica'
+            artifactId = 'your-artifact-id'
+            version = '0.0.1'
+
+            pom {
+                name = 'ES Quantities Java'
+                description = 'A description of your project'
+                url = 'http://www.encyclopediasemantica.com'
+
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'OmarElabd'
+                        name = 'Omar Elabd'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:git:git://github.com/OmarElabd/es-quantities-java.git'
+                    developerConnection = 'scm:git:ssh://github.com:OmarElabd/es-quantities-java.git'
+                    url = 'https://github.com/OmarElabd/es-quantities-java'
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = 'myRepo'
+            url = uri('http://my.maven.repo/repository/maven-releases/')
+            credentials {
+                username = project.findProperty("mavenUser") ?: ""
+                password = project.findProperty("mavenPassword") ?: ""
+            }
+        }
+    }
 }

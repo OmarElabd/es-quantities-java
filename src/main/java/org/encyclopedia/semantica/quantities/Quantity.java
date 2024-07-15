@@ -21,11 +21,11 @@ public class Quantity implements Comparable<Quantity> {
         return new Quantity(value, unit);
     }
 
-    public Number getValue() { return this.value;}
+    public Number getValue() {return this.value;}
 
-    public int intValue() { return this.value.intValue(); }
+    public int intValue() {return this.value.intValue();}
 
-    public double doubleValue() { return this.value.doubleValue(); }
+    public double doubleValue() {return this.value.doubleValue();}
 
     @Override
     public String toString() {
@@ -116,119 +116,119 @@ public class Quantity implements Comparable<Quantity> {
 
     private static Number add(Number augend, Number addend) {
         if (augend == null || addend == null) {
-            throw new IllegalArgumentException("Both numbers must be non-null");
+            throw new IllegalArgumentException("Both addends must be non-null");
         }
 
-        if (isBigDecimal(augend) || isBigDecimal(addend)) {
+        if (augend instanceof BigDecimal || addend instanceof BigDecimal) {
             return toBigDecimal(augend).add(toBigDecimal(addend));
-        } else if (isBigInteger(augend) || isBigInteger(addend)) {
-            return toBigInteger(augend).add(toBigInteger(addend));
-        } else if (isDouble(augend) || isDouble(addend)) {
+        } else if (augend instanceof BigInteger || addend instanceof BigInteger) {
+            if (augend instanceof Double || addend instanceof Double || augend instanceof Float || addend instanceof Float) {
+                return toBigDecimal(augend).add(toBigDecimal(addend));
+            } else {
+                return toBigInteger(augend).add(toBigInteger(addend));
+            }
+        } else if (augend instanceof Double || addend instanceof Double) {
             return augend.doubleValue() + addend.doubleValue();
-        } else if (isFloat(augend) || isFloat(addend)) {
+        } else if (augend instanceof Float || addend instanceof Float) {
             return augend.floatValue() + addend.floatValue();
-        } else if (isLong(augend) || isLong(addend)) {
+        } else if (augend instanceof Long || addend instanceof Long) {
             return augend.longValue() + addend.longValue();
         } else {
+            // int, short, and byte are promoted to int in arithmetic operations
             return augend.intValue() + addend.intValue();
         }
     }
 
     private static Number subtract(Number minuend, Number subtrahend) {
         if (minuend == null || subtrahend == null) {
-            throw new IllegalArgumentException("Both numbers must be non-null");
+            throw new IllegalArgumentException("Both minuend and subtrahend must be non-null");
         }
 
-        if (isBigDecimal(minuend) || isBigDecimal(subtrahend)) {
+        if (minuend instanceof BigDecimal || subtrahend instanceof BigDecimal) {
             return toBigDecimal(minuend).subtract(toBigDecimal(subtrahend));
-        } else if (isBigInteger(minuend) || isBigInteger(subtrahend)) {
-            return toBigInteger(minuend).subtract(toBigInteger(subtrahend));
-        } else if (isDouble(minuend) || isDouble(subtrahend)) {
+        } else if (minuend instanceof BigInteger || subtrahend instanceof BigInteger) {
+            if (minuend instanceof Double || subtrahend instanceof Double || minuend instanceof Float || subtrahend instanceof Float) {
+                return toBigDecimal(minuend).subtract(toBigDecimal(subtrahend));
+            } else {
+                return toBigInteger(minuend).subtract(toBigInteger(subtrahend));
+            }
+        } else if (minuend instanceof Double || subtrahend instanceof Double) {
             return minuend.doubleValue() - subtrahend.doubleValue();
-        } else if (isFloat(minuend) || isFloat(subtrahend)) {
+        } else if (minuend instanceof Float || subtrahend instanceof Float) {
             return minuend.floatValue() - subtrahend.floatValue();
-        } else if (isLong(minuend) || isLong(subtrahend)) {
+        } else if (minuend instanceof Long || subtrahend instanceof Long) {
             return minuend.longValue() - subtrahend.longValue();
         } else {
+            // int, short, and byte are promoted to int in arithmetic operations
             return minuend.intValue() - subtrahend.intValue();
         }
     }
 
+
     private static Number multiply(Number multiplicand, Number multiplier) {
         if (multiplicand == null || multiplier == null) {
-            throw new IllegalArgumentException("Both numbers must be non-null");
+            throw new IllegalArgumentException("Both multiplicand and multiplier must be non-null");
         }
 
-        if (isBigDecimal(multiplicand) || isBigDecimal(multiplier)) {
+        if (multiplicand instanceof BigDecimal || multiplier instanceof BigDecimal) {
             return toBigDecimal(multiplicand).multiply(toBigDecimal(multiplier));
-        } else if (isBigInteger(multiplicand) || isBigInteger(multiplier)) {
-            return toBigInteger(multiplicand).multiply(toBigInteger(multiplier));
-        } else if (isDouble(multiplicand) || isDouble(multiplier)) {
+        } else if (multiplicand instanceof BigInteger || multiplier instanceof BigInteger) {
+            if (multiplicand instanceof Double || multiplier instanceof Double || multiplicand instanceof Float || multiplier instanceof Float) {
+                return toBigDecimal(multiplicand).multiply(toBigDecimal(multiplier));
+            } else {
+                return toBigInteger(multiplicand).multiply(toBigInteger(multiplier));
+            }
+        } else if (multiplicand instanceof Double || multiplier instanceof Double) {
             return multiplicand.doubleValue() * multiplier.doubleValue();
-        } else if (isFloat(multiplicand) || isFloat(multiplier)) {
+        } else if (multiplicand instanceof Float || multiplier instanceof Float) {
             return multiplicand.floatValue() * multiplier.floatValue();
-        } else if (isLong(multiplicand) || isLong(multiplier)) {
+        } else if (multiplicand instanceof Long || multiplier instanceof Long) {
             return multiplicand.longValue() * multiplier.longValue();
         } else {
+            // int, short, and byte are promoted to int in arithmetic operations
             return multiplicand.intValue() * multiplier.intValue();
         }
     }
 
     private static Number divide(Number dividend, Number divisor) {
         if (dividend == null || divisor == null) {
-            throw new IllegalArgumentException("Both numbers must be non-null");
+            throw new IllegalArgumentException("Both dividend and divisor must be non-null");
         }
 
-        if (isBigDecimal(dividend) || isBigDecimal(divisor)) {
+        if (divisor.doubleValue() == 0.0) {
+            throw new ArithmeticException("Division by zero");
+        }
+
+        if (dividend instanceof BigDecimal || divisor instanceof BigDecimal) {
             return toBigDecimal(dividend).divide(toBigDecimal(divisor));
-        } else if (isBigInteger(dividend) || isBigInteger(divisor)) {
-            return new BigDecimal(toBigInteger(dividend)).divide(new BigDecimal(toBigInteger(divisor)));
-        } else if (isDouble(dividend) || isDouble(divisor)) {
+        } else if (dividend instanceof BigInteger || divisor instanceof BigInteger) {
+                return toBigDecimal(dividend).divide(toBigDecimal(divisor));
+        } else if (dividend instanceof Double || divisor instanceof Double) {
             return dividend.doubleValue() / divisor.doubleValue();
-        } else if (isFloat(dividend) || isFloat(divisor)) {
+        } else if (dividend instanceof Float || divisor instanceof Float) {
             return dividend.floatValue() / divisor.floatValue();
-        } else if (isLong(dividend) || isLong(divisor)) {
+        } else if (dividend instanceof Long || divisor instanceof Long) {
             return dividend.longValue() / divisor.longValue();
         } else {
+            // int, short, and byte are promoted to int in arithmetic operations
             return dividend.intValue() / divisor.intValue();
         }
-    }
-
-    private static boolean isDouble(Number number) {
-        return number instanceof Double;
-    }
-
-    private static boolean isFloat(Number number) {
-        return number instanceof Float;
-    }
-
-    private static boolean isLong(Number number) {
-        return number instanceof Long;
-    }
-
-    private static boolean isBigDecimal(Number number) {
-        return number instanceof BigDecimal;
-    }
-
-    private static boolean isBigInteger(Number number) {
-        return number instanceof BigInteger;
     }
 
     private static BigDecimal toBigDecimal(Number number) {
         if (number instanceof BigDecimal) {
             return (BigDecimal) number;
-        } else if (number instanceof BigInteger) {
-            return new BigDecimal((BigInteger) number);
-        } else {
-            return new BigDecimal(number.toString());
         }
+        if (number instanceof BigInteger) {
+            return new BigDecimal((BigInteger) number);
+        }
+        return BigDecimal.valueOf(number.doubleValue());
     }
 
     private static BigInteger toBigInteger(Number number) {
         if (number instanceof BigInteger) {
             return (BigInteger) number;
-        } else {
-            return new BigInteger(number.toString());
         }
+        return BigInteger.valueOf(number.longValue());
     }
 }
