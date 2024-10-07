@@ -1,4 +1,4 @@
-import com.sun.deploy.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.encyclopedia.semantica.quantities.common.ISerializable;
 import org.encyclopedia.semantica.quantities.dimension.Dimension;
 import org.encyclopedia.semantica.quantities.instances.Dimensions;

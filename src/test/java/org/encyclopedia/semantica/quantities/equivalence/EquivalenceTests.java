@@ -44,31 +44,26 @@ public class EquivalenceTests {
     }
 
     @Test
+    @DisplayName("m*m^2 = m^3")
     public void testEquivalence_ProductVsPower() {
         // Arrange
         ProductDerivedUnit cubicMetreSUT = new ProductDerivedUnit(squareMetre, metre);
 
-        boolean isEquivalent = cubicMetre.equivalentTo(cubicMetreSUT);
-        boolean isEquivalentReversed = cubicMetreSUT.equivalentTo(cubicMetre);
-
-        assertTrue(isEquivalent);
-        assertTrue(isEquivalentReversed);
+        assertTrue(cubicMetre.equivalentTo(cubicMetreSUT));
+        assertTrue(cubicMetreSUT.equivalentTo(cubicMetre));
     }
 
     @Test
     public void testEquivalence_RaisedToPowerOfOne() {
         PowerDerivedUnit metreSUT = new PowerDerivedUnit(metre, 1);
 
-        boolean isEquivalent = metreSUT.equivalentTo(metre);
-        boolean isEquivalentReversed = metre.equivalentTo(metreSUT);
-
-        assertTrue(isEquivalent);
-        assertTrue(isEquivalentReversed);
+        assertTrue(metreSUT.equivalentTo(metre));
+        assertTrue(metre.equivalentTo(metreSUT));
     }
 
     @Test
+    @DisplayName("J == ((kg m^2) / s^2)")
     public void testEquivalence_NamedVsDerivation() {
-        // J = (kg m^2) / s^2
         assertTrue(joule.equivalentTo(joule.getDerivation()));
     }
 
@@ -86,6 +81,6 @@ public class EquivalenceTests {
         Normalization j2Norm = J2.getBaseNormalForm();
         Normalization j2BaseNorm = J2.getBaseNormalForm();
 
-        int i = 0;
+        // TODO
     }
 }

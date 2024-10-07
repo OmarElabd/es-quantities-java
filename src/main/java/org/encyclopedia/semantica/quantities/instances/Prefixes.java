@@ -15,6 +15,8 @@ public final class Prefixes {
     }
 
     // SI
+    public static final Prefix quetta = new Prefix("quetta", "Q", "Q", 10, 30);
+    public static final Prefix ronna = new Prefix("ronna", "R", "R", 10, 27);
     public static final Prefix yotta = new Prefix("yotta", "Y", "Y", 10, 24);
     public static final Prefix zetta = new Prefix("zetta", "Z", "Z", 10, 21);
     public static final Prefix exa = new Prefix("exa", "E", "E", 10, 18);
@@ -29,13 +31,15 @@ public final class Prefixes {
     public static final Prefix deci = new Prefix("deci", "d", "d", 10, -1);
     public static final Prefix centi = new Prefix("centi", "c", "c", 10, -2);
     public static final Prefix milli = new Prefix("milli", "m", "m", 10, -3);
-    public static final Prefix micro = new Prefix("micro", "u", "\u00b5", 10, -6);
+    public static final Prefix micro = new Prefix("micro", "u", "µ", 10, -6);
     public static final Prefix nano = new Prefix("nano", "n", "n", 10, -9);
     public static final Prefix pico = new Prefix("pico", "p", "p", 10, -12);
     public static final Prefix femto = new Prefix("femto", "f", "f", 10, -15);
     public static final Prefix atto = new Prefix("atto", "a", "a", 10, -18);
     public static final Prefix zepto = new Prefix("zepto", "z", "z", 10, -21);
     public static final Prefix yocto = new Prefix("yocto", "y", "y", 10, -24);
+    public static final Prefix ronto = new Prefix("ronto", "r", "r", 10, -27);
+    public static final Prefix quecto = new Prefix("quecto", "q", "q", 10, -30);
 
     // JEDEC
     public static final Prefix jedecKilo = new Prefix("jedec_kilo", "kilo", "K", "K", 1024, 1);
@@ -75,8 +79,8 @@ public final class Prefixes {
                                                          jedecKilo, jedecMega, jedecGiga,
                                                          kibi, mebi, gibi, tebi, pebi, exbi, zebi, yobi);
 
-    public static final String[] AllNames = new String[]{"yotta", "zetta", "exa", "peta", "tera", "giga", "mega", "kilo", "hecto", "deka",
-                                                           "yocto", "zepto", "atto", "femto", "pico", "nano", "micro", "milli", "centi", "deci",
+    public static final String[] AllNames = new String[]{yotta.getName(), zetta.getName(), exa.getName(), peta.getName(), tera.getName(), giga.getName(), mega.getName(), kilo.getName(), hecto.getName(), deka.getName(),
+                                                           yocto.getName(), zepto.getName(), atto.getName(), femto.getName(), pico.getName(), nano.getName(), micro.getName(), milli.getName(), centi.getName(), deci.getName(),
                                                            "kibi", "mebi", "gibi", "tebi", "pebi", "exbi", "zebi", "yobi"};
 
     public static Optional<Prefix> tryGetByResourceName(String resourceName) {

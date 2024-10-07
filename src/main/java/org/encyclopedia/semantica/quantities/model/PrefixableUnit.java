@@ -8,6 +8,9 @@ import org.encyclopedia.semantica.quantities.instances.Prefixes;
 
 import java.util.List;
 
+/**
+ * Represents a unit that can be prefixed, for example meter can be prefixed with any SI prefix
+ */
 public class PrefixableUnit extends NamedUnit implements IPrefixComparable {
     protected List<Prefix> applicablePrefixes;
 

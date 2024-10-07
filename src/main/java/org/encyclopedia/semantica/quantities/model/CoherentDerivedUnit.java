@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * This class represents Derived Units with Special Names and Symbols
+ * <p>
+ * Note: can this just be a derived unit with an extra name?
  */
 public class CoherentDerivedUnit extends PrefixableUnit implements IDerivableUnit {
     private DerivedUnit derivation;

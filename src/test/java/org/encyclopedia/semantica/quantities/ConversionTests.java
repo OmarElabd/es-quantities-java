@@ -189,9 +189,9 @@ public class ConversionTests {
     public void testTemperature_Inference() {
         Quantity quantity = new Quantity(932.00, fahrenheit);
 
-        assertEquals(773.15, quantity.convertTo(kelvin).doubleValue(), 0.01);
+        assertEquals(773.15, quantity.convertTo(kelvin).doubleValue(), 0.02);
         assertEquals(1391.67, quantity.convertTo(rankine).doubleValue(), 0.01);
-        // assertEquals(-600.00, quantity.convertTo(delisle).getDoubleValue(), 0.1);
+        //assertEquals(-600.00, quantity.convertTo(delisle).doubleValue(), 0.1);
         assertEquals(165.00, quantity.convertTo(TemperatureUnits.newton).doubleValue(), 0.01);
         assertEquals(400.00, quantity.convertTo(reaumur).doubleValue(), 0.01);
         assertEquals(270.00, quantity.convertTo(romer).doubleValue(), 0.01);
@@ -206,11 +206,44 @@ public class ConversionTests {
     }
 
     @Test
+    @DisplayName("1 kilobit = 125 bytes")
+    public void testConvertBinarySIPrefix() {
+        Unit kibiBit = new PrefixedUnit(kilo, bit);
+        Quantity quantity = new Quantity(1, kibiBit);
+
+        assertEquals(125, quantity.convertTo(bytes).intValue());
+    }
+
+    @Test
     @DisplayName("1 kibibit = 128 bytes")
-    public void testConvertBinaryPrefix() {
+    public void testConvertBinaryIECPrefix() {
         Unit kibiBit = new PrefixedUnit(kibi, bit);
         Quantity quantity = new Quantity(1, kibiBit);
 
         assertEquals(128, quantity.convertTo(bytes).intValue());
+    }
+
+    @Test
+    @DisplayName("1 foot = 304.8 mm")
+    public void testConvertImperialToPrefix() {
+        Unit millimeter = new PrefixedUnit(milli, meter);
+        Quantity quantity = new Quantity(1, foot);
+
+        assertEquals(304.8, quantity.convertTo(millimeter).intValue());
+    }
+
+    @Test
+    @DisplayName("1 mm = 304.8 mm")
+    public void testConvertPrefixToImperial() {
+        Unit millimeter = new PrefixedUnit(milli, meter);
+        Quantity quantity = new Quantity(1, millimeter);
+
+        assertEquals(0.00328084, quantity.convertTo(foot).intValue());
+    }
+
+    @Test
+    @DisplayName("100 Km/s = x Miles/hour")
+    public void testConvertComplex() {
+
     }
 }

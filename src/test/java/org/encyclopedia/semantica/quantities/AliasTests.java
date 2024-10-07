@@ -3,29 +3,28 @@ package org.encyclopedia.semantica.quantities;
 import org.encyclopedia.semantica.quantities.instances.Dimensions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AliasTests {
     @Test
     public void testBaseDimensionAliases_RefEquals() {
-        assertTrue(Dimensions.L == Dimensions.length);
-        assertTrue(Dimensions.I == Dimensions.electricCurrent);
-        assertTrue(Dimensions.T == Dimensions.time);
-        assertTrue(Dimensions.O == Dimensions.temperature);
-        assertTrue(Dimensions.N == Dimensions.amountOfSubstance);
-        assertTrue(Dimensions.M == Dimensions.mass);
-        assertTrue(Dimensions.J == Dimensions.luminousIntensity);
+        assertSame(Dimensions.L, Dimensions.length);
+        assertSame(Dimensions.I, Dimensions.electricCurrent);
+        assertSame(Dimensions.T, Dimensions.time);
+        assertSame(Dimensions.O, Dimensions.temperature);
+        assertSame(Dimensions.N, Dimensions.amountOfSubstance);
+        assertSame(Dimensions.M, Dimensions.mass);
+        assertSame(Dimensions.J, Dimensions.luminousIntensity);
     }
 
     @Test
     public void testBaseDimensionAliases_Equals() {
-        assertTrue(Dimensions.L.equals(Dimensions.length));
-        assertTrue(Dimensions.I.equals(Dimensions.electricCurrent));
-        assertTrue(Dimensions.T.equals(Dimensions.time));
-        assertTrue(Dimensions.O.equals(Dimensions.temperature));
-        assertTrue(Dimensions.N.equals(Dimensions.amountOfSubstance));
-        assertTrue(Dimensions.M.equals(Dimensions.mass));
-        assertTrue(Dimensions.J.equals(Dimensions.luminousIntensity));
+        assertEquals(Dimensions.L, Dimensions.length);
+        assertEquals(Dimensions.I, Dimensions.electricCurrent);
+        assertEquals(Dimensions.T, Dimensions.time);
+        assertEquals(Dimensions.O, Dimensions.temperature);
+        assertEquals(Dimensions.N, Dimensions.amountOfSubstance);
+        assertEquals(Dimensions.M, Dimensions.mass);
+        assertEquals(Dimensions.J, Dimensions.luminousIntensity);
     }
 }

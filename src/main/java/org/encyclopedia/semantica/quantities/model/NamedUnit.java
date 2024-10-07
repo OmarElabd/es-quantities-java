@@ -5,11 +5,12 @@ import org.encyclopedia.semantica.quantities.dimension.Dimension;
 import org.encyclopedia.semantica.quantities.model.derived.PowerDerivedUnit;
 import org.encyclopedia.semantica.quantities.UnitSystem;
 
-// NOTE non-prefixable
+
+/**
+ * Note: NamedUnits are not Prefixable
+ */
 public class NamedUnit extends Unit {
-    protected NamedUnit() {
-        super();
-    }
+    protected NamedUnit() { super(); }
 
     public NamedUnit(String name, String unicodeName, String plural, String unicodePlural, String symbol, String unicodeSymbol,
                      Dimension dimension, UnitSystem system) {

@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'maven-publish'
+apply plugin: 'jacoco'
 
 repositories {
     mavenCentral()
@@ -39,6 +40,19 @@ sourceSets {
 
     scripts {
         java.srcDirs = ['src/scripts']
+    }
+}
+
+test {
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    reports {
+        xml.required = true
+        html.required = true
     }
 }
 

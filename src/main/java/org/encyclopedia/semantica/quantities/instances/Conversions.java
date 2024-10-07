@@ -63,14 +63,11 @@ public final class Conversions {
 
         // Temperature
         ConversionEngine.registerConversion(SIUnits.kelvin, TemperatureUnits.celsius, new OffsetOperation(-273.16));
-        ConversionEngine.registerConversion(TemperatureUnits.celsius, TemperatureUnits.fahrenheit,
-                                            new MultiplyOffsetOperation((9.0 / 5.0), 32.0));
-        ConversionEngine.registerConversion(TemperatureUnits.celsius, TemperatureUnits.rankine,
-                                            new OffsetMultiplyOperation(273.15, (9.0 / 5.0)));
+        ConversionEngine.registerConversion(TemperatureUnits.celsius, TemperatureUnits.fahrenheit, new MultiplyOffsetOperation((9.0 / 5.0), 32.0));
+        ConversionEngine.registerConversion(TemperatureUnits.celsius, TemperatureUnits.rankine, new OffsetMultiplyOperation(273.15, (9.0 / 5.0)));
         ConversionEngine.registerConversion(TemperatureUnits.celsius, TemperatureUnits.newton, (33.0 / 100.0));
         ConversionEngine.registerConversion(TemperatureUnits.celsius, TemperatureUnits.reaumur, (4.0 / 5.0));
-        ConversionEngine.registerConversion(TemperatureUnits.celsius, TemperatureUnits.romer,
-                                            new MultiplyOffsetOperation((21.0 / 40.0), 7.5));
+        ConversionEngine.registerConversion(TemperatureUnits.celsius, TemperatureUnits.romer, new MultiplyOffsetOperation((21.0 / 40.0), 7.5));
 
     }
 

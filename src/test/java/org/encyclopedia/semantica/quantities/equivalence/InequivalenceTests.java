@@ -28,7 +28,7 @@ public class InequivalenceTests {
 
     @Test
     @DisplayName("m/s != m/s^2")
-    public void testInequivalence_FailureMultiplePer() {
+    public void testInequivalence_MultiplePer() {
         DivisionDerivedUnit metrePerSecondSquaredDerived = new DivisionDerivedUnit(metrePerSecond, second);
 
         assertFalse(metrePerSecond.equivalentTo(metrePerSecondSquaredDerived));

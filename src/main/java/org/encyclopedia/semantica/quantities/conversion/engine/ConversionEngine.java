@@ -11,7 +11,7 @@ import org.encyclopedia.semantica.quantities.common.Normalization;
 import org.encyclopedia.semantica.quantities.model.Unit;
 import org.encyclopedia.semantica.quantities.Quantity;
 
-// TODO use multiple graphs implemented as a Map<org.encyclopedia.semantica.quantities.Dimension, Graph>
+// TODO use multiple graphs implemented as a Map<Dimension, Graph>
 public final class ConversionEngine {
     private ConversionEngine() {}
 
@@ -55,6 +55,7 @@ public final class ConversionEngine {
     }
 
     // TODO Fix
+    // TODO - Cases millimeter -> feet
     public static double convert(Number value, Unit fromUnit, Unit toUnit) {
         // TODO check that they are equivalent
         // TODO check that their dimensions are equivalent
@@ -66,9 +67,16 @@ public final class ConversionEngine {
 
         // if they are a prefix or prefixable
         if (fromUnit instanceof IPrefixComparable && toUnit instanceof IPrefixComparable) {
+            // if they have the same based, e.g. millimeter -> kilometer
             if (((NamedUnit) fromUnit).baseEquals(toUnit)) {
                 return prefixConvert((IPrefixComparable) fromUnit, (IPrefixComparable) toUnit, value);
             }
+        }
+
+
+        // if they don't have the same base, e.g. mm to feet
+        if (fromUnit instanceof IPrefixComparable || toUnit instanceof IPrefixComparable) {
+            // TODO
         }
 
         // if there is a direct conversion registered between the two units
@@ -79,7 +87,6 @@ public final class ConversionEngine {
 
         // if there is an indirect conversion between the two units
         if (GraphSolver.containsPath(fromUnit, toUnit))
-
         {
             return GraphSolver.convert(fromUnit, toUnit, value);
         }
@@ -104,7 +111,8 @@ public final class ConversionEngine {
 
         if (fromUnit.dimensionEquals(toUnit))
         {
-            int x = 0;
+            // TODO
+            throw new IllegalArgumentException("Could not convert from " + fromUnit.getName() + " to " + toUnit.getName());
         }
 
         return value.doubleValue() * getFactor(fromUnit.getBaseNormalForm(), toUnit.getBaseNormalForm());

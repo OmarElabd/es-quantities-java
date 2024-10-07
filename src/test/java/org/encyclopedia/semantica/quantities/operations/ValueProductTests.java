@@ -8,13 +8,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
 
-import static org.encyclopedia.semantica.quantities.instances.Prefixes.*;
-import static org.encyclopedia.semantica.quantities.instances.SIDerivedUnits.*;
 import static org.encyclopedia.semantica.quantities.instances.SIUnits.metre;
-import static org.encyclopedia.semantica.quantities.instances.SIUnits.second;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ProductTests {
+public class ValueProductTests {
     @Test
     @DisplayName("5m * 5 = 25m")
     public void testProductIntInt() throws ParseException {

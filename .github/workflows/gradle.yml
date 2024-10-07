@@ -15,7 +15,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -33,22 +32,35 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
 
+    # Build with gradle
     - name: Build with Gradle Wrapper
       run: ./gradlew build
 
-    # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
-    # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
-    #
-    # - name: Setup Gradle
-    #   uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
-    #   with:
-    #     gradle-version: '8.5'
-    #
-    # - name: Build with Gradle 8.5
-    #   run: gradle build
+     # Run tests and generate code coverage using JaCoCo
+    - name: Run tests with coverage
+      run: ./gradlew test jacocoTestReport
+
+    # Upload test results (JUnit XML format)
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      with:
+          name: test-results
+          path: build/test-results/test
+
+    # Upload JaCoCo coverage report
+    - name: Upload code coverage
+      uses: actions/upload-artifact@v3
+      with:
+          name: code-coverage-report
+          path: build/reports/jacoco/test
+
+    # Display coverage results in GitHub summary (third-party action)
+    - name: Code Coverage Summary
+      uses: codecov/codecov-action@v3
+      with:
+          files: build/reports/jacoco/test/jacocoTestReport.xml
 
   dependency-submission:
-
     runs-on: ubuntu-latest
     permissions:
       contents: write

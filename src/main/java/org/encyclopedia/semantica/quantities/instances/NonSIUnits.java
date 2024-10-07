@@ -20,7 +20,7 @@ public final class NonSIUnits {
     public static final NamedUnit day = new NamedUnit("day", "days", "d", "d", Dimensions.time);
 
     //
-    public static final NamedUnit arcdegree = new NamedUnit("degree", "degrees", "deg", "\u02da", Dimensions.planeAngle);
+    public static final NamedUnit arcdegree = new NamedUnit("degree", "degrees", "deg", "˚", Dimensions.planeAngle);
     public static final NamedUnit arcminute = new NamedUnit("arc minute", "arc minutes", "'", "'", Dimensions.planeAngle);
     public static final NamedUnit arcsecond = new NamedUnit("arc second", "arc seconds", "\"", "\"", Dimensions.planeAngle);
 
@@ -43,8 +43,8 @@ public final class NonSIUnits {
     public static final NamedUnit dalton = new NamedUnit("dalton", "daltons", "Da", "Da", Dimensions.mass);
 
     //TODO Natural and Atomic Units
-    public static final NamedUnit angstrom = new NamedUnit("angstrom", "\u00e5ngstr\u00f6m", "angstroms", "\u00e5ngstr\u00f6ms", "A",
-                                                           "\u212b", Dimensions.length);
+    public static final NamedUnit angstrom = new NamedUnit("angstrom", "ångström", "angstroms", "ångströms", "A",
+                                                           "Å", Dimensions.length);
     // TODO hectare, dectare, etc..
     public static final PrefixableUnit are = new PrefixableUnit("are", "are", "a", "a", Dimensions.area);
     public static final PrefixedUnit decare = new PrefixedUnit(Prefixes.deci, are, "decare", "decares", "daa", "daa");
@@ -73,13 +73,13 @@ public final class NonSIUnits {
 
     public static final NamedUnit curie = new NamedUnit("curie", "curies", "Ci", "Ci", Dimensions.radioActivity);
 
-    public static final NamedUnit roentgen = new NamedUnit("roentgen", "r\u00F6entgen", "roetgens", "r\u00F6entgens", "R", "R",
+    public static final NamedUnit roentgen = new NamedUnit("roentgen", "röentgen", "roetgens", "röentgens", "R", "R",
                                                            Dimensions.radiantExposure);
 
     public static final NamedUnit rad = new NamedUnit("rad", "rads", "rad", "rad", Dimensions.absorbedDose);
 
-    public static final NamedUnit rontgenEquivalentMan = new NamedUnit("rontgen equivalent man", "r\u00F6ntgen equivalent mans",
-                                                                       "rontgen equivalent mans", "r\u00F6ntgen equivalent mans", "rem",
+    public static final NamedUnit rontgenEquivalentMan = new NamedUnit("rontgen equivalent man", "röntgen equivalent mans",
+                                                                       "rontgen equivalent mans", "röntgen equivalent mans", "rem",
                                                                        "rem", Dimensions.doseEquivalent);
 
     public static final NamedUnit gForce = new NamedUnit("g-force", "g-force", "g", Dimensions.acceleration);

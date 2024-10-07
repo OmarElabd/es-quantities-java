@@ -13,16 +13,14 @@ import java.util.Optional;
  * This class contains the list of physical quantities which are associated with units.
  */
 public final class Dimensions {
-    private Dimensions() {
-    }
+    private Dimensions() {}
 
-    public static void initialize() {
-    }
+    public static void initialize() {}
 
     public static final Dimensionless unspecified = new Dimensionless("Unspecified");
     public static final Dimensionless Dimensionless = new Dimensionless("Dimensionless");
 
-    //region Base Dimensions
+    // Base Dimensions
     public static final BaseDimension length = BaseDimension.length;
     public static final BaseDimension L = length;
 
@@ -43,9 +41,8 @@ public final class Dimensions {
 
     public static final BaseDimension luminousIntensity = BaseDimension.luminousIntensity;
     public static final BaseDimension J = luminousIntensity;
-    //endregion
 
-    //region Derived Dimensions
+    // Derived Dimensions
     public static final DerivedDimension acceleration = new DerivedDimension("Acceleration", L, 2, T, -2);
     public static final DerivedDimension angularAcceleration = new DerivedDimension("Angular acceleration", L, T, -2);
     public static final DerivedDimension angularVelocity = new DerivedDimension("Angular velocity", T, -2);
@@ -67,8 +64,7 @@ public final class Dimensions {
     public static final DerivedDimension electricChargeDensity = new DerivedDimension("Electric charge density", I, T, L, -3);
     public static final DerivedDimension electricDisplacement = new DerivedDimension("Electric Displacement", I, T, L, -2);
     public static final DerivedDimension electricFieldStrength = new DerivedDimension("Electric field strength", M, L, T, -3, I, -1);
-    public static final DerivedDimension electricalConductance = new DerivedDimension("Electrical conductance", L, -2, M, -1, T, 3, I,
-                                                                                      2);
+    public static final DerivedDimension electricalConductance = new DerivedDimension("Electrical conductance", L, -2, M, -1, T, 3, I, 2);
     public static final DerivedDimension electricPotential = new DerivedDimension("Electric potential", L, 2, M, T, -3, I, -1);
     public static final DerivedDimension electricalResistance = new DerivedDimension("Electrical resistance", L, 2, M, T, -3, I, -2);
     public static final DerivedDimension energy = new DerivedDimension("Energy", M, L, 2, T, -2);
@@ -132,11 +128,9 @@ public final class Dimensions {
     public static final DerivedDimension compressibility = new DerivedDimension("Compressibility", L, M, -1, T, 2);
     public static final DerivedDimension magneticReluctance = new DerivedDimension("Magnetic reluctance", L, -2, M, -1, T, -2, I, 2);
     public static final DerivedDimension magneticMoment = new DerivedDimension("Magnetic moment", L, 3, M, T, -2, I, -1);
-    public static final DerivedDimension magneticVectorPotential = new DerivedDimension("Magnetic vector potential", L, M, T, -2, I,
-                                                                                        -1);
+    public static final DerivedDimension magneticVectorPotential = new DerivedDimension("Magnetic vector potential", L, M, T, -2, I, -1);
     public static final DerivedDimension magneticRigidity = new DerivedDimension("Magnetic rigidity", L, M, T, -2, I, -1);
-    public static final DerivedDimension magneticSusceptibility = new DerivedDimension("Magnetic susceptibility", L, -1, M, -1, T, 2,
-                                                                                       I, 2);
+    public static final DerivedDimension magneticSusceptibility = new DerivedDimension("Magnetic susceptibility", L, -1, M, -1, T, 2, I, 2);
     public static final DerivedDimension frequencyDrift = new DerivedDimension("Frequency drift", T, -2);
     public static final DerivedDimension specificAngularMomentum = new DerivedDimension("Specific angular momentum", L, 2, T, -1);
 
@@ -180,7 +174,6 @@ public final class Dimensions {
     public static final Dimensionless fieldRatio = new Dimensionless("Field Ratio");
 
     public static final Dimensionless informationEntropy = new Dimensionless("Information Entropy");
-    //endregion
 
     public static final List<BaseDimension> BaseDimensions = Arrays.asList(length, mass, time, electricCurrent, temperature,
                                                                            amountOfSubstance, luminousIntensity);
@@ -231,7 +224,7 @@ public final class Dimensions {
                   .findFirst();
     }
 
-    //region Operators
+    // Operators
     public static DerivedDimension multiply(Dimension leftOperand, Dimension rightOperand) {
         return Dimension.multiply(leftOperand, rightOperand);
     }
@@ -247,5 +240,4 @@ public final class Dimensions {
     public static Dimension power(Dimension operand, int power) {
         return Dimension.power(operand, power);
     }
-    //endregion
 }

@@ -1,17 +1,27 @@
 package org.encyclopedia.semantica.quantities.io;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.net.URI;
+import java.util.*;
 
 public final class ReflectionUtil {
-    private ReflectionUtil() {}
+    private static final Set<Class<?>> primitiveTypes = new HashSet<>();
+
+    static {
+        primitiveTypes.add(Boolean.class);
+        primitiveTypes.add(Integer.class);
+        primitiveTypes.add(Long.class);
+        primitiveTypes.add(Short.class);
+        primitiveTypes.add(Double.class);
+        primitiveTypes.add(Float.class);
+        primitiveTypes.add(Date.class);
+        primitiveTypes.add(String.class);
+        primitiveTypes.add(Character.class);
+        primitiveTypes.add(URI.class);
+    }
 
     public static List<Field> getAllFields(Class<?> type) {
-        List<Field> fields = new ArrayList<>();
-        fields.addAll(Arrays.asList(type.getDeclaredFields()));
+        List<Field> fields = new ArrayList<>(Arrays.asList(type.getDeclaredFields()));
 
         if (type.getSuperclass() != null) {
             fields.addAll(getAllFields(type.getSuperclass()));
@@ -24,10 +34,7 @@ public final class ReflectionUtil {
         return isPrimitive(obj.getClass());
     }
 
-    public static boolean isPrimitive(Class obj) {
-        return (Boolean.class.equals(obj) || Integer.class.equals(obj) || Long.class.equals(obj)
-                || Short.class.equals(obj) || Double.class.equals(obj) || Float.class.equals(obj)
-                || Date.class.equals(obj) || String.class.equals(obj) || Character.class.equals(obj)
-                || java.net.URI.class.equals(obj));
+    public static boolean isPrimitive(Class<?> obj) {
+        return primitiveTypes.contains(obj);
     }
 }

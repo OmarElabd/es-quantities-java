@@ -15,36 +15,36 @@ import java.util.stream.Collectors;
 public class Normalization {
     private Unit unitToNormalize;
     private Dimension dimension = Dimensions.unspecified;
-    private List<PowerDerivedUnit> productOperands = new ArrayList<>();
+    private final Set<PowerDerivedUnit> productOperands;
 
     private Normalization(List<PowerDerivedUnit> operands) {
-        this.productOperands = operands;
-        this.mergeOperands();
+        this.productOperands = mergeOperands(operands);
     }
 
     public Normalization(PowerDerivedUnit operand) {
         this.unitToNormalize = operand;
         this.dimension = operand.getDimension();
-        this.productOperands = Collections.singletonList(operand);
-        this.mergeOperands();
+
+        this.productOperands = Collections.singleton(operand);
     }
 
     public Normalization(DerivedUnit unitToNormalize, List<PowerDerivedUnit> operands) {
         this.unitToNormalize = unitToNormalize;
         this.dimension = unitToNormalize.getDimension();
-        this.productOperands = operands;
-        this.mergeOperands();
+
+        this.productOperands = mergeOperands(operands);
     }
 
     public Normalization(DerivedUnit unitToNormalize, Normalization... normalizations) {
         this.unitToNormalize = unitToNormalize;
         this.dimension = unitToNormalize.getDimension();
 
+        List<PowerDerivedUnit> operands = new ArrayList<>();
         for (Normalization normalization : normalizations) {
-            productOperands.addAll(normalization.productOperands);
+            operands.addAll(normalization.productOperands);
         }
 
-        this.mergeOperands();
+        this.productOperands = mergeOperands(operands);
     }
 
     public static Normalization raiseAll(Normalization normalization, int power) {
@@ -58,14 +58,24 @@ public class Normalization {
         return new Normalization(newOperands);
     }
 
-    public Unit toSimpleForm() {
-        List<PowerDerivedUnit> positiveOperands = this.productOperands.stream()
-                                                                      .filter(op -> op.getPower() > 0)
-                                                                      .collect(Collectors.toList());
 
-        List<PowerDerivedUnit> negativeOperands = this.productOperands.stream()
-                                                                      .filter(op -> op.getPower() < 0)
-                                                                      .collect(Collectors.toList());
+    /**
+     * Express the normalized form as a divison derived unit if applicable
+     * e.g. [m^1, s^-2] -> m/s^s
+     *
+     * @return A Unit expressed as (u1^x1 * u2^x2 * ...) / (u3^x3 * u4*x4 * ...) The returning type with be
+     * - NamedUnit - if all units cancel out e.g. s/s
+     * - ProductDerviedUnit - if there are no divisors
+     * - DivisonDerivedUnit - otherwise
+     */
+    public Unit toSimpleForm() {
+        List<PowerDerivedUnit> numerators = this.productOperands.stream()
+                                                                .filter(op -> op.getPower() > 0)
+                                                                .collect(Collectors.toList());
+
+        List<PowerDerivedUnit> denominators = this.productOperands.stream()
+                                                                  .filter(op -> op.getPower() < 0)
+                                                                  .collect(Collectors.toList());
 
         Unit result = null;
 
@@ -74,17 +84,17 @@ public class Normalization {
             result = new NamedUnit("", "", "1", this.dimension);
         }
 
-        if (positiveOperands.size() > 0) {
+        if (numerators.size() > 0) {
             Unit numerator;
 
-            if (positiveOperands.get(0).getPower() == 1) {
-                numerator = positiveOperands.get(0).getOperand();
+            if (numerators.get(0).getPower() == 1) {
+                numerator = numerators.get(0).getOperand();
             } else {
-                numerator = positiveOperands.get(0);
+                numerator = numerators.get(0);
             }
 
-            for (int i = 0; i < positiveOperands.size() - 1; i++) {
-                PowerDerivedUnit current = positiveOperands.get(i + 1);
+            for (int i = 0; i < numerators.size() - 1; i++) {
+                PowerDerivedUnit current = numerators.get(i + 1);
 
                 Unit temp;
                 if (current.getPower() == 1) {
@@ -98,26 +108,25 @@ public class Normalization {
             }
 
             // Numerator and Denominator Both Present
-            if (negativeOperands.size() > 0) {
+            if (denominators.size() > 0) {
                 Unit denominator;
 
-                PowerDerivedUnit firstNegative = negativeOperands.get(0);
-                if (negativeOperands.get(0).getPower() == -1) {
+                PowerDerivedUnit firstNegative = denominators.get(0);
+                if (denominators.get(0).getPower() == -1) {
                     denominator = firstNegative.getOperand();
                 } else {
                     denominator = new PowerDerivedUnit(firstNegative.getOperand(), Math.abs(firstNegative.getPower()));
                 }
 
-                for (int i = 0; i < negativeOperands.size() - 1; i++) {
-                    PowerDerivedUnit current = negativeOperands.get(i + 1);
+                for (int i = 0; i < denominators.size() - 1; i++) {
+                    PowerDerivedUnit current = denominators.get(i + 1);
 
                     Unit temp;
                     if (current.getPower() == -1) {
                         temp = new ProductDerivedUnit(denominator, current);
                     } else {
                         // negative sign becomes positive
-                        temp = new ProductDerivedUnit(denominator,
-                                                      new PowerDerivedUnit(current.getOperand(), Math.abs(current.getPower())));
+                        temp = new ProductDerivedUnit(denominator, new PowerDerivedUnit(current.getOperand(), Math.abs(current.getPower())));
                     }
 
                     denominator = temp;
@@ -130,11 +139,11 @@ public class Normalization {
         }
 
         // No Positive Units only Negative
-        if (negativeOperands.size() > 0 && positiveOperands.size() == 0) {
-            Unit denominator = negativeOperands.get(0);
+        if (denominators.size() > 0 && numerators.isEmpty()) {
+            Unit denominator = denominators.get(0);
 
-            for (int i = 0; i < negativeOperands.size() - 1; i++) {
-                PowerDerivedUnit current = negativeOperands.get(i + 1);
+            for (int i = 0; i < denominators.size() - 1; i++) {
+                PowerDerivedUnit current = denominators.get(i + 1);
 
                 Unit temp;
                 temp = new ProductDerivedUnit(denominator, current, this.dimension);
@@ -153,7 +162,7 @@ public class Normalization {
     }
 
     // TODO should return a cloned list so the internal structure isn't modified
-    public List<PowerDerivedUnit> getProductOperands() {
+    public Set<PowerDerivedUnit> getProductOperands() {
         return productOperands;
     }
 
@@ -180,8 +189,7 @@ public class Normalization {
             }
         }
 
-        throw new IllegalArgumentException(
-                "Could not find unit with matching dimension of " + baseUnit.getDimension().getUnicodeSymbol() + " in the normalization");
+        throw new IllegalArgumentException("Could not find unit with matching dimension of " + baseUnit.getDimension().getUnicodeSymbol() + " in the normalization");
     }
 
     @Override
@@ -202,15 +210,17 @@ public class Normalization {
     /**
      * Will merge product operands into a single unit
      * e.g. x^1 * x^2 = x^3
+     *
+     * @return a set of power units representing any possible derived or atomic/single unit
      */
-    private void mergeOperands() {
+    private static Set<PowerDerivedUnit> mergeOperands(List<PowerDerivedUnit> operands) {
         Map<NamedUnit, List<PowerDerivedUnit>> collectedOperands = new HashMap<>();
 
         List<PowerDerivedUnit> newOperands = new ArrayList<>();
 
         // add all to map collection such that the same units are grouped together
         // e.g. (m^2,m^5),(s,s),(w)
-        for (PowerDerivedUnit productOperand : productOperands) {
+        for (PowerDerivedUnit productOperand : operands) {
             if (!collectedOperands.containsKey(productOperand.getOperand())) {
                 collectedOperands.put(productOperand.getOperand(), new ArrayList<>());
             }
@@ -237,10 +247,8 @@ public class Normalization {
 
         // drop operands with power of 0
         // e.g. (m^7, s^0, w^1) => (m^7, w^1)
-        List<PowerDerivedUnit> mergedOperands = newOperands.stream()
-                                                           .filter(x -> x.getPower() != 0)
-                                                           .collect(Collectors.toList());
-
-        this.productOperands = mergedOperands;
+        return newOperands.stream()
+                          .filter(x -> x.getPower() != 0)
+                          .collect(Collectors.toSet());
     }
 }

@@ -18,21 +18,27 @@ import java.util.Objects;
 import java.util.Optional;
 
 // TODO implement builder pattern if constructors become unmanageable
+
+/**
+ * Base Unit class where others are derived from
+ */
 public abstract class Unit implements ISymbol, ISerializable {
     protected Normalization baseNormalForm;
     protected Normalization coherentNormalForm;
 
-    protected String name = "";
-    protected String unicodeName = "";
-    protected String plural = "";
-    protected String unicodePlural = "";
-    protected String symbol = "";
-    protected String unicodeSymbol = "";
+    protected String name;
+    protected String unicodeName;
+    protected String plural;
+    protected String unicodePlural;
+    protected String symbol;
+    protected String unicodeSymbol;
 
     protected Dimension dimension = Dimensions.unspecified;
     protected UnitSystem unitSystem = UnitSystem.Unspecified;
 
     //region Constructors
+    protected Unit() {}
+
     public Unit(String name, String unicodeName, String plural, String unicodePlural, String symbol, String unicodeSymbol,
                 Dimension dimension, UnitSystem system) {
         this.name = name;
@@ -43,9 +49,6 @@ public abstract class Unit implements ISymbol, ISerializable {
         this.unicodeSymbol = unicodeSymbol;
         this.dimension = dimension;
         this.unitSystem = system;
-    }
-
-    protected Unit() {
     }
 
     public Unit(String name, String unicodeName, String plural, String unicodePlural, String symbol,
@@ -161,7 +164,23 @@ public abstract class Unit implements ISymbol, ISerializable {
         return this.dimension.equivalentTo(unit.dimension);
     }
 
+
     /**
+     * TODO review
+     * Two units are commensurable if they can be directly compared to each other (i.e. they have the same kind and dimension)
+     * Dimensional homogeneity is not necessarily sufficient for quantities to be comparable; for example,
+     * both kinematic viscosity and thermal diffusivity have dimension of square length per time (in units of m2/s).
+     * Quantities of the same kind share extra commonalities beyond their dimension and units allowing their comparison; for example,
+     * not all dimensionless quantities are of the same kind.
+     * @param compare Unit to compare against
+     * @return true if they are commensurable, false otherwise
+     */
+    public boolean isCommensurable(Unit compare) {
+        return equivalentTo(compare);
+    }
+
+    /**
+     * TODO rewrite
      * Returns true if the units are equal or equivalent.
      * For example: m * m and m^2 are equivalent but not equal.
      */

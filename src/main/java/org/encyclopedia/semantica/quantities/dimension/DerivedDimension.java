@@ -193,8 +193,7 @@ public class DerivedDimension extends Dimension {
         List<PowerDimension> powerDimensions = this.getPowerDimensions();
 
         List<PowerDimension> sortedDimensions = powerDimensions.stream()
-                                                               .sorted(Comparator.comparingInt(
-                                                                       dim -> dim.getBaseDimension().getSortOrder()))
+                                                               .sorted(Comparator.comparingInt(dim -> dim.getBaseDimension().getSortOrder()))
                                                                .collect(Collectors.toList());
 
         for (PowerDimension sortedDimension : sortedDimensions) {

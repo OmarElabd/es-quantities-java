@@ -5,9 +5,12 @@ import org.encyclopedia.semantica.quantities.Prefix;
 
 import java.util.Objects;
 
+/**
+ * Represents a specific unit that has been prefixed, e.g. millimeter
+ */
 public class PrefixedUnit extends NamedUnit implements IPrefixComparable {
     public Prefix prefix;
-    public PrefixableUnit baseUnit;
+    public final PrefixableUnit baseUnit;
 
     public PrefixedUnit(Prefix prefix, PrefixableUnit unit) {
         super(prefix.getName() + unit.name,
@@ -57,6 +60,8 @@ public class PrefixedUnit extends NamedUnit implements IPrefixComparable {
     public PrefixableUnit getBaseUnit() {
         return baseUnit;
     }
+
+    // TODO add setters for changing prefix
 
     @Override
     public boolean equals(Object obj) {

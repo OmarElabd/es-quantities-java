@@ -57,7 +57,7 @@ public final class CGSUnits {
     public static final NamedUnit gauss = new NamedUnit("gauss", "gauss", "G", "G",
                                                         Dimensions.magneticFluxDensity, UnitSystem.CentimetreGramSecond);
 
-    public static final NamedUnit oersted = new NamedUnit("oersted", "\u0153rsted", "oersted", "\u0153rsted", "Oe", "Oe",
+    public static final NamedUnit oersted = new NamedUnit("oersted", "œrsted", "oersted", "œrsted", "Oe", "Oe",
                                                           Dimensions.magneticFieldStrength, UnitSystem.CentimetreGramSecond);
 
     public static final NamedUnit kayser = new NamedUnit("kayser", "kayers", "K", "K", Dimensions.waveNumber,

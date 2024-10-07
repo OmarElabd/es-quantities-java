@@ -57,5 +57,5 @@ public final class ImperialUnits {
     public static final NamedUnit ton = new NamedUnit("ton", "tons", "t", Dimensions.mass, UnitSystem.Imperial);
     public static final NamedUnit slug = new NamedUnit("slug", "slugs", "slug", Dimensions.mass, UnitSystem.Imperial);
 
-    public static final List<Unit> All = Arrays.asList(foot);
+    public static final List<Unit> All = List.of(foot);
 }

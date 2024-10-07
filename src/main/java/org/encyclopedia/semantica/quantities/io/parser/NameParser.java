@@ -20,20 +20,29 @@ import java.util.stream.Collectors;
 
 public class NameParser {
 
+    /**
+     * Main method to parse the given unit name into a Unit object.
+     * This method uses a cascading approach to attempt various parsing strategies.
+     *
+     * @param name the unit name to parse.
+     * @return the parsed Unit object wrapped in an Optional.
+     * @throws ParseException if the unit cannot be parsed.
+     */
     public static Unit parseName(String name) throws ParseException {
         Optional<Unit> result = tryParseName(name);
-
-        if (result.isPresent()) {
-            return result.get();
-        } else {
-            throw new ParseException("Could not parse unit from name: " + name, 0);
-        }
+        return result.orElseThrow(() -> new ParseException("Could not parse unit from name: " + name, 0));
     }
 
+    /**
+     * Tries to parse a unit name into a Unit object using various strategies.
+     *
+     * @param name the unit name to parse.
+     * @return an Optional containing the parsed Unit or empty if parsing fails.
+     */
     public static Optional<Unit> tryParseName(String name) {
         List<Unit> allUnits = Units.All;
 
-        // check if the unit symbol already exists in the existing units
+        // check if the unit name already exists in the existing units
         List<Unit> initialMatches = allUnits.stream()
                                             .filter(unit -> unit.getName().equals(name) || unit.getUnicodeName().equals(name))
                                             .collect(Collectors.toList());

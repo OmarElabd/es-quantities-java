@@ -109,7 +109,6 @@ public abstract class Dimension implements ISymbol, ISerializable {
     }
     //endregion
 
-    //region Getters
     @Override
     public String getName() {
         return name;
@@ -131,11 +130,10 @@ public abstract class Dimension implements ISymbol, ISerializable {
 
         return resourceName;
     }
-    //endregion
 
     /**
      * Returns true if two dimensions are equivalent (i.e. their normalizations are identical).
-     * For example: The dimensions Angle and Refractive index are not equal but they are equivalent.
+     * For example: The dimensions of 'Angle' and 'Refractive index' are not equal (but they are equivalent.)
      */
     public boolean equivalentTo(Dimension dimension) {
         if (this.equals(dimension)) {

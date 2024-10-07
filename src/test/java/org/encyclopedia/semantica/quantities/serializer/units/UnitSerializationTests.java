@@ -51,7 +51,7 @@ public class UnitSerializationTests {
 
         String expected = metre.serialize();
 
-        assertEquals(expected, actual);
+         assertEquals(expected, actual);
     }
 
     @Test

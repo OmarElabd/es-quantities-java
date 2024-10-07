@@ -31,6 +31,10 @@ public final class BaseDimension extends Dimension {
         this.sortOrder = sortOrder;
     }
 
+    public PowerDimension pow(int power) {
+        return new PowerDimension(this, power);
+    }
+
     //region Query Operators
     public static BaseDimension getBySymbol(String symbol) {
         return tryGetBySymbol(symbol).get();
