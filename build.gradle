@@ -45,6 +45,13 @@ sourceSets {
 
 test {
     finalizedBy jacocoTestReport
+
+    useJUnitPlatform() // Use JUnit 5
+
+    reports {
+        junitXml.required = true // Enables JUnit XML report
+        html.required = true     // Enables HTML report (optional)
+    }
 }
 
 jacocoTestReport {
