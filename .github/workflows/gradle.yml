@@ -63,6 +63,7 @@ jobs:
 
     # Upload test results (third-party action)
     - name: CodeCov Test Results
+      if: ${{ !cancelled() }} # Always upload
       uses: codecov/test-results-action@v1
       with:
           directory: build/test-results/test
