@@ -59,8 +59,7 @@ jobs:
       if: ${{ !cancelled() }} # Always upload
       uses: codecov/test-results-action@v1
       with:
-          directory: build/test-results/test
-          files: ./TEST-*.xml
+          files: ./build/test-results/test/TEST-*.xml
           token: ${{ secrets.CODECOV_TOKEN }}
 
   dependency-submission:
