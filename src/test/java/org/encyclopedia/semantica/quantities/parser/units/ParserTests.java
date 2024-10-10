@@ -26,7 +26,7 @@ public class ParserTests {
     @Test
     @DisplayName("metres per second per second -> m/s/s")
     public void testParse_TwoPer() throws ParseException {
-        String str = "centimetres per second per second";
+        String str = "metres per second per second";
 
         Unit expected = SIDerivedUnits.metrePerSecondSquared;
         Unit actual = Units.parseName(str);

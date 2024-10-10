@@ -3,6 +3,9 @@ apply plugin: 'idea'
 apply plugin: 'maven-publish'
 apply plugin: 'jacoco'
 
+group = 'org.encyclopedia.semantica'
+version = '0.0.1'
+
 repositories {
     mavenCentral()
 }
@@ -103,7 +106,7 @@ publishing {
 
             pom {
                 name = 'ES Quantities Java'
-                description = 'A description of your project'
+                description = 'A Java Library for Units, Quantities and Dimensions'
                 url = 'http://www.encyclopediasemantica.com'
 
                 licenses {

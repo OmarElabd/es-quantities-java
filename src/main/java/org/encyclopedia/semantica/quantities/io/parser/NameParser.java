@@ -36,15 +36,20 @@ public class NameParser {
     /**
      * Tries to parse a unit name into a Unit object using various strategies.
      *
-     * @param name the unit name to parse.
+     * @param unitStr the unit name to parse.
      * @return an Optional containing the parsed Unit or empty if parsing fails.
      */
-    public static Optional<Unit> tryParseName(String name) {
+    public static Optional<Unit> tryParseName(String unitStr) {
         List<Unit> allUnits = Units.All;
 
+        // Normalize the input name (handle underscores, hyphens, and spaces)
+        String name = unitStr.replace("_", " ").replace("-", " ").toLowerCase().trim();
+
+        // Match Exact
         // check if the unit name already exists in the existing units
         List<Unit> initialMatches = allUnits.stream()
-                                            .filter(unit -> unit.getName().equals(name) || unit.getUnicodeName().equals(name))
+                                            .filter(unit -> unit.getName().equals(name) || unit.getUnicodeName().equals(name) ||
+                                                    unit.getPlural().equals(name) || unit.getUnicodePlural().equals(name))
                                             .collect(Collectors.toList());
 
         if (initialMatches.size() > 0) {
@@ -56,6 +61,7 @@ public class NameParser {
            return result;
         }
 
+        // TODO refactor into while
         int divisionCount = StringUtils.countMatches(name, " per ");
         if (divisionCount > 1) {
             // TODO can have multiple "per"
@@ -105,7 +111,7 @@ public class NameParser {
 
         // Parse Prefixed Unit
         Optional<Prefix> prefixMatch = Prefixes.All.stream()
-                                                   .filter(p -> name.startsWith(p.getName()))
+                                                   .filter(pre -> name.startsWith(pre.getName()))
                                                    .findFirst();
         if (prefixMatch.isPresent()) {
             Prefix prefix = prefixMatch.get();
